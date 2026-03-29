@@ -7,6 +7,8 @@ tags: system-design
 categories:
 giscus_comments: false
 related_posts: false
+toc:
+  beginning: true
 ---
 
 # Overview:

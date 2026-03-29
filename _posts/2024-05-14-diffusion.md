@@ -7,51 +7,50 @@ tags: fundamentals
 categories:
 giscus_comments: false
 related_posts: false
+toc:
+  beginning: true
 ---
 
-## Forward Diffusion:
-- In a Markov Chain process of T steps (where each step depends on n previous step), add Gaussian Noise to current time step to generate next time step as shown by equation
+## Forward Diffusion
+
+In a Markov Chain process of T steps (where each step depends on the previous step), add Gaussian Noise to the current time step to generate next time step:
 
 $$
 \begin{gathered}
-q(x_t|x_t-1) = \mathcal{N}(x_t;mean_t = \sqrt{1-\beta_tx_t}, \Sigma_t = \beta_tI) \\
-\text{Sample } \epsilon \sim \mathcal{N}(0, I) \text{ and then set } x_t = \sqrt{1 - \beta_tx_{t-1}} + \sqrt{\beta_t\epsilon}
+q(x_t \mid x_{t-1}) = \mathcal{N}(x_t;\, \mu_t = \sqrt{1-\beta_t}\, x_{t-1},\; \Sigma_t = \beta_t I) \\
+\text{Sample } \epsilon \sim \mathcal{N}(0, I) \text{ and set } x_t = \sqrt{1 - \beta_t}\, x_{t-1} + \sqrt{\beta_t}\, \epsilon
 \end{gathered}
 $$
 
-Note: $$\beta_t$$ at each time step is not constant, variance scheduler is utilized (typically linear, quadratic, cosine)
+> $$\beta_t$$ at each time step is not constant — a variance scheduler is utilized (typically linear, quadratic, or cosine).
 
-- Reparameterization Trick:
+### Reparameterization Trick
 
 $$
 \begin{gathered}
-a_t = 1 - \beta_t \\
-\text{Scaling factor that depends on noise variance} \\
-\bar{a}_t = \prod_{s=0}^t\alpha_s \\
-\text{Product of all alpha values from step 0 to step t,} \\
-\text{represents cumulative effect of scaling up to timestep t} \\
-\epsilon{0}, \epsilon{1}, ..., \epsilon{t} - 1 \sim N(0, I)\\
-\text{Independent Gaussian noise variables drawn from normal} \\
-\text{distribution with mean 0 and identity covariance matrix I} \\
-x_t = \bar{a}_t x_0 + \sqrt{1 - \bar{a}_t \epsilon_0} \\
-\text{Allows us the express } x_t \text{ in terms of initial data point} \\
-x_0 \text{ and a series of Gaussian noise terms}
+\alpha_t = 1 - \beta_t \quad \text{(scaling factor that depends on noise variance)} \\[6pt]
+\bar{\alpha}_t = \prod_{s=0}^{t} \alpha_s \quad \text{(cumulative scaling up to timestep } t\text{)} \\[6pt]
+\epsilon_{0}, \epsilon_{1}, \ldots, \epsilon_{t-1} \sim \mathcal{N}(0, I) \\[6pt]
+x_t = \sqrt{\bar{\alpha}_t}\, x_0 + \sqrt{1 - \bar{\alpha}_t}\, \epsilon_0
 \end{gathered}
 $$
 
-Note: Since $$\beta_t$$ is a hyperparameter, we can precompute scaling factor and the cumulative scaling factor for timestep t for all timesteps
+This allows us to express $$x_t$$ directly in terms of the initial data point $$x_0$$ and a single noise term, skipping all intermediate steps.
 
-## Reverse Diffusion:
-- Since $$x_t$$ is nearly an isotropic Gaussian distribution as $$T \rightarrow \infty$$ we can start by sampling $$x_t$$ from Normal distribution $$\mathcal{N}(0, I)$$
-- Using reverse distribution $$p(x_t-1 | x_t)$$, iteratively sample $$x_t-1$$ from $$x_t$$ moving backward from $$T$$ to 0
-   - $$p(x_t-1 | x_t)$$ is intractable to know since it requires knowing the distribution of all possible images to calculate conditional probability $$\rightarrow$$ we leverage neural network to learn the conditional probability distribution called $$p_\theta(x_{t-1} | x_t)$$ with $$\theta$$ representing the parameters of the neural network
+> Since $$\beta_t$$ is a hyperparameter, we can precompute $$\alpha_t$$ and $$\bar{\alpha}_t$$ for all timesteps.
+
+## Reverse Diffusion
+
+- As $$T \rightarrow \infty$$, $$x_T$$ approaches an isotropic Gaussian. We start by sampling $$x_T \sim \mathcal{N}(0, I)$$.
+- Using the reverse distribution $$p(x_{t-1} \mid x_t)$$, iteratively sample backward from $$T$$ to 0.
+- $$p(x_{t-1} \mid x_t)$$ is intractable — it requires knowing the distribution of all possible images. We use a neural network to approximate it:
 
 $$
-\begin{gathered}
-p_\theta(x_{t-1} | x_t) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t), \Sigma_\theta(x_t, t)) \\
-\text{Neural network needs to learn the mean and variance}
-\end{gathered}
+p_\theta(x_{t-1} \mid x_t) = \mathcal{N}(x_{t-1};\; \mu_\theta(x_t, t),\; \Sigma_\theta(x_t, t))
 $$
 
-- Objective Function:
-   - Similar to VAE, we can use variational lower bound (ELBO) to minimize negative log-likelihood with respect to ground truth data sample $$x_0$$
+The neural network learns the mean $$\mu_\theta$$ and variance $$\Sigma_\theta$$.
+
+## Objective Function
+
+Similar to VAE, we use the variational lower bound (ELBO) to minimize the negative log-likelihood with respect to the ground truth data sample $$x_0$$.

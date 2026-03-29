@@ -7,144 +7,127 @@ tags: fundamentals
 categories:
 giscus_comments: false
 related_posts: false
+toc:
+  beginning: true
 ---
 
 ## Supervised Learning
-Supervised learning consists of input values (independent variables) and target/output values (dependent variables) with the goal of creating function for mapping the input values to the output values accurately. It is called "supervised" learning because the model is provided with correct training, allowing it to make predictions/classifications on unseen data.
+Supervised learning consists of input values (independent variables) and target/output values (dependent variables) with the goal of creating a function for mapping inputs to outputs accurately.
 
 ## Unsupervised Learning
-Unsupervised learning consists of just input data with no output/target data. The goal of unsupervised learning is to find relationship/characteristics/patterns among the input data. Algorithms for unsupervised learning aim to cluster together similar data or find patterns that indicate the hidden characteristic of the data. Because there are no correct outputs provided for training, the algorithm explores the data with no prior knowledge.
+Unsupervised learning consists of just input data with no output/target data. The goal is to find relationships, characteristics, and patterns among the input data.
 
 ## Reinforcement Learning
-Reinforcement learning deals with an agent interacting with an environment to maximize its cumulative reward/minimize the penalty. The agent learns by taking actions in an environment and receiving feedback in the form of rewards or penalties. The goal is to learn the optimal policy - a set of actions that maximize the cumulative reward over time.
+An agent interacts with an environment to maximize cumulative reward. The agent learns by taking actions and receiving feedback in the form of rewards or penalties. The goal is to learn the optimal policy.
 
 ## Steps in ML Pipeline
-Here are the following steps for creating a machine learning pipeline:
 1. Data Collection
-2. Data Preprocessing - Data balancing to prevent bias, data normalization, cleaning up missing values...
-3. Feature Engineering - Transforming raw data into useful features
-4. Data Splitting - Split the new data into train/valid/test data
-5. Model Selection - Choose the optimal model depending on specific use cases
-6. Model Training - Train the model where it learns the patterns and relationships
-7. Model Evaluation - Model is evaluated on performance and generalization ability
-8. Model Optimization - Hyperparameter tuning, new feature creation, different regularization methods
+2. Data Preprocessing — balancing, normalization, cleaning missing values
+3. Feature Engineering — transforming raw data into useful features
+4. Data Splitting — train/valid/test
+5. Model Selection — choose optimal model for the use case
+6. Model Training — learn patterns via optimization
+7. Model Evaluation — performance and generalization metrics
+8. Model Optimization — hyperparameter tuning, regularization, ensembles
 9. Model Deployment
 10. Model Maintenance
 
-## Generative Models
-Generative models aim to model the probability distribution of the input data. They learn the joint probability distribution between features and output labels (if available).
+## Generative vs. Discriminative Models
 
-$$
-P(X, Y) = P(Y) * P(X|Y)
-$$
+**Generative models** learn the joint probability distribution $$P(X, Y) = P(Y) \cdot P(X \mid Y)$$.
 
-where $$P(Y)$$ represents prior probability of $$Y$$ and $$P(X|Y)$$ represents the conditional probability of $$X$$ given $$Y$$. Generative models learn both $$P(Y)$$ and $$P(X|Y)$$.
+**Discriminative models** learn the conditional probability $$P(Y \mid X)$$ directly.
 
-## Discriminative Models
-Discriminative models aims to learn the decision boundaries that separate different classes or categories. They learn the conditional probability of the output labels given the input features $$P(Y|X)$$.
+Key differences:
+- Generative models can generate new samples; discriminative models learn decision boundaries.
+- Generative models are more expensive to train (estimate both $$P(Y)$$ and $$P(X \mid Y)$$).
 
 ## Bias vs. Variance
-- **Bias Error:** A model with high bias tends to oversimplify the underlying patterns in the data and make strong assumptions. This results in underfitting.
-- **Variance Error:** High variance refers to the instability of the model's predictions caused by small changes in the training data. A model with high variance is overly complex and sensitive to noise.
+- **High Bias:** Model oversimplifies, misses patterns → underfitting.
+- **High Variance:** Model is overly complex, sensitive to noise → overfitting.
 
-As bias is decreased (model is more complex), variance tends to increase, and vice versa.
+Decreasing bias increases variance, and vice versa.
 
 ## Regularization
-Regularization helps prevent overfitting by adding a regularization term to the loss function:
+
+Adds a penalty term to the loss function to prevent overfitting:
 
 $$
-J_{reg} = J + \alpha * R(w)
+J_{\text{reg}} = J + \alpha \cdot R(w)
 $$
 
 ### L1 Regularization (Lasso)
-Adds the sum of the absolute values of the model weights as a penalty term. Encourages sparsity (can drive some parameters to zero):
+Encourages sparsity — can drive parameters to zero (feature selection):
 
 $$
-R(w) = ||w||_1 = |w_1| + |w_2| + ... + |w_n|
+R(w) = \|w\|_1 = |w_1| + |w_2| + \cdots + |w_n|
 $$
 
 ### L2 Regularization (Ridge)
-Adds the sum of the squared values of the model's parameters as a penalty term. Promotes smaller parameter values:
+Promotes smaller parameter values without driving them to zero:
 
 $$
-R(w) = ||w||_2^2 = w_1^2 + w_2^2 + ... + w_n^2
+R(w) = \|w\|_2^2 = w_1^2 + w_2^2 + \cdots + w_n^2
 $$
 
-### L1 vs. L2
-- **L1** encourages sparsity, pushing some parameters to zero. Acts as feature selection.
-- **L2** penalizes larger parameter values but does not push them to zero. Distributes weight values more evenly.
-
-### Elastic Net Regularization
-Combination of L1 and L2:
+### Elastic Net
+Combines L1 and L2:
 
 $$
-J_{reg} = J + \alpha * \{\lambda * L1(w) + (1 - \lambda) * L2(w)\}
+J_{\text{reg}} = J + \alpha \left[\lambda \cdot \|w\|_1 + (1 - \lambda) \cdot \|w\|_2^2 \right]
 $$
 
-## Regression Models
-The goal of regression is to predict a continuous, numerical value.
+## Regression Metrics
 
-- **MSE:** $$MSE = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$$
-- **RMSE:** $$RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}$$
-- **MAE:** $$MAE = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i|$$
-- **R-Squared:**
+| Metric | Formula |
+|--------|---------|
+| **MSE** | $$\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$$ |
+| **RMSE** | $$\sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}$$ |
+| **MAE** | $$\frac{1}{n}\sum_{i=1}^{n} \lvert y_i - \hat{y}_i \rvert$$ |
+| **R-Squared** | $$1 - \frac{\sum(y_i - \hat{y}_i)^2}{\sum(y_i - \bar{y})^2}$$ |
 
-$$
-\begin{gathered}
-R^2 = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y}_i)^2} \\
-\text{Where } \hat{y} \text{ is predicted value and } \bar{y} \text{ is mean of predicted value}
-\end{gathered}
-$$
+## Classification Metrics
 
-## Classification Models
-The goal is to predict a discrete, categorical outcome or label.
+| Metric | Formula |
+|--------|---------|
+| **Accuracy** | $$\frac{TP + TN}{TP + TN + FP + FN}$$ |
+| **Precision** | $$\frac{TP}{TP + FP}$$ |
+| **Recall** | $$\frac{TP}{TP + FN}$$ |
+| **F1 Score** | $$2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}$$ |
+| **Specificity** | $$\frac{TN}{TN + FP}$$ |
 
-- **Accuracy:** $$\frac{TP+TN}{TP+TN+FP+FN}$$
-- **Precision:** $$\frac{TP}{TP+FP}$$
-- **Recall:** $$\frac{TP}{TP + FN}$$
-- **F1 Score:** $$2 * \frac{Precision * Recall}{Precision + Recall}$$
-- **Specificity:** $$\frac{TN}{TN+FP}$$
-- **AUC-ROC:** Assesses the model's ability to discriminate between positive and negative instances across different classification thresholds.
+**AUC-ROC:** Area under the ROC curve (True Positive Rate vs. False Positive Rate at various thresholds).
 
 ## SVM
-Aims to find the hyperplane that separates two classes with the largest possible margin.
+
+Finds the hyperplane that separates two classes with the largest margin:
 
 $$
-\begin{gathered}
-w^Tx + b = 0 \\
-\text{Where w is the normal vector to the hyperplane, } \\
-\text{x is the feature vector and b is the bias term}
-\end{gathered}
+w^T x + b = 0
 $$
 
-SVM minimizes the norm of the weight vector subject to correct classification:
+Optimization objective:
 
 $$
-\begin{gathered}
-\text{minimize: } \frac{1}{2} * ||w||^2 \\
-\text{subject to: } y_i * (w^Tx_i + b) \ge 1
-\end{gathered}
+\min \frac{1}{2} \|w\|^2 \quad \text{s.t.} \quad y_i(w^T x_i + b) \ge 1
 $$
 
-### Kernel Trick in SVM
-Implicitly transforms features into higher-dimensional space without explicitly calculating the transformed features.
-- Linear Kernel: $$K(x, y) = x^Ty$$
-- Polynomial Kernel: $$K(x, y) = (ax^Ty + c)^d$$
-- Gaussian (RBF) Kernel: $$K(x, y) = \exp(-\gamma||x-y||^2)$$
+### Kernel Trick
+Maps features into higher-dimensional space where classes become linearly separable:
+- **Linear:** $$K(x, y) = x^T y$$
+- **Polynomial:** $$K(x, y) = (a \cdot x^T y + c)^d$$
+- **RBF (Gaussian):** $$K(x, y) = \exp(-\gamma \|x - y\|^2)$$
 
 ## Logistic Regression
-Models the probability of the class being in class 1 using the sigmoid function:
+
+Models class probability using the sigmoid function:
 
 $$
-\begin{gathered}
-h_\theta(x) = \sigma(\theta^Tx) \\
-\text{Where } h_\theta(x) \text{ represents the predicted probability of the target variable } \\
-\text{in class 1 for the input feature vector x, with } \theta \text{ being the weights}
-\end{gathered}
+h_\theta(x) = \sigma(\theta^T x) = \frac{1}{1 + e^{-\theta^T x}}
 $$
 
-Cost Function:
+Cost function (binary cross-entropy):
 
 $$
-J(\theta) = -\frac{1}{m} \sum_{i=1}^{m}[y_i \log(h_\theta(x_i)) + (1-y_i) \log(1-h_\theta(x_i))]
+J(\theta) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y_i \log(h_\theta(x_i)) + (1 - y_i) \log(1 - h_\theta(x_i)) \right]
 $$
