@@ -37,73 +37,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-forward-and-reverse-diffusion",
-        
-          title: "Forward and Reverse Diffusion",
-        
-        description: "Forward diffusion as a Markov chain, reparameterization trick, reverse diffusion with neural networks, and the ELBO objective.",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/diffusion/";
-          
-        },
-      },{id: "post-estimating-probabilities-from-data-mle-map-and-bayesian-inference",
-        
-          title: "Estimating Probabilities from Data: MLE, MAP, and Bayesian Inference",
-        
-        description: "Maximum Likelihood Estimation, Bayesian approach with Beta priors, MAP estimation, and the posterior predictive distribution.",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/mle-estimation/";
-          
-        },
-      },{id: "post-ml-basics-review",
-        
-          title: "ML Basics Review",
-        
-        description: "Supervised and unsupervised learning, bias-variance tradeoff, regularization (L1/L2/Elastic Net), regression and classification metrics, SVM, and logistic regression.",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/ml-basics-review/";
-          
-        },
-      },{id: "post-fundamentals-of-cnn",
-        
-          title: "Fundamentals of CNN",
-        
-        description: "Discrete convolution, pooling, output feature map sizing, transposed convolution, and batch normalization.",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/cnn-fundamentals/";
-          
-        },
-      },{id: "post-ml-system-design-template",
-        
-          title: "ML System Design Template",
-        
-        description: "End-to-end ML system design framework covering requirements, data preparation, model development, evaluation, deployment, and monitoring -- with an EMG decoder case study.",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/ml-system-design-template/";
-          
-        },
-      },{id: "post-bmw-e30",
-        
-          title: "BMW E30",
-        
-        description: "Why the BMW E30 is one of the greatest cars ever made.",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/bmw-e30/";
-          
-        },
-      },{id: "projects-semg-decoder-system-design",
+        },{id: "projects-semg-decoder-system-design",
           title: 'sEMG Decoder System Design',
           description: "End-to-end sEMG signal acquisition, processing, and neural decoding for wrist pose, discrete gestures, and handwriting -- based on the CTRL-Labs research platform.",
           section: "Projects",handler: () => {
@@ -114,34 +48,6 @@ ninja.data = [{
           section: "Projects",handler: () => {
               window.location.href = "/projects/2_emg_features/";
             },},{
-        id: 'social-email',
-        title: 'email',
-        section: 'Socials',
-        handler: () => {
-          window.open("mailto:%61%6C%65%78%6A%6B%69%6D%30%37%31%37@%67%6D%61%69%6C.%63%6F%6D", "_blank");
-        },
-      },{
-        id: 'social-github',
-        title: 'GitHub',
-        section: 'Socials',
-        handler: () => {
-          window.open("https://github.com/alexjunghokim", "_blank");
-        },
-      },{
-        id: 'social-linkedin',
-        title: 'LinkedIn',
-        section: 'Socials',
-        handler: () => {
-          window.open("https://www.linkedin.com/in/alexjkim2000", "_blank");
-        },
-      },{
-        id: 'social-rss',
-        title: 'RSS Feed',
-        section: 'Socials',
-        handler: () => {
-          window.open("/feed.xml", "_blank");
-        },
-      },{
       id: 'light-theme',
       title: 'Change theme to light',
       description: 'Change the theme of the site to Light',
