@@ -5,23 +5,20 @@ permalink: /
 subtitle: ML Research Engineer at <a href="https://aws.amazon.com/">Amazon (AWS)</a>
 
 profile:
-  align: right
-  image: prof_pic.jpg
-  image_circular: false
-  more_info: >
-    <p>Seattle, WA</p>
+  align: center
+  image: prof_pic.jpeg
+  image_circular: true
+  more_info:
 
-selected_papers: true
+selected_papers: false
 social: true
 
 announcements:
   enabled: false
-  scrollable: true
-  limit: 5
 
 latest_posts:
   enabled: true
-  scrollable: true
+  scrollable: false
   limit: 3
 ---
 

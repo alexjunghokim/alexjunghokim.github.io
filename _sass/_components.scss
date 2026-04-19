@@ -90,6 +90,60 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
+// Centered profile (Karpathy/Saurabh style)
+.profile-center {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  figure {
+    display: inline-block;
+    margin: 0;
+  }
+
+  img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .more-info {
+    margin-top: 0.5rem;
+    font-family: monospace;
+  }
+
+  // Center the header when using centered profile
+  & ~ .clearfix {
+    text-align: left;
+  }
+}
+
+// Center the about page header when profile is centered
+.profile-center ~ .clearfix {
+  margin-top: 0;
+}
+
+// Make post-header center when profile-center is used
+.post > article > .profile-center {
+  & ~ * {
+    // Keep bio text left-aligned
+  }
+}
+
+// Center the name and subtitle on the about page
+body:has(.profile-center) {
+  .post-header {
+    text-align: center;
+
+    .post-title {
+      margin-bottom: 0.25rem;
+    }
+
+    .desc {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
 // CV
 
 .cv {
