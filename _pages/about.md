@@ -10,7 +10,7 @@ profile:
   image_circular: true
   more_info:
 
-selected_papers: false
+selected_papers: false # not using bibliography
 social: true
 
 announcements:
