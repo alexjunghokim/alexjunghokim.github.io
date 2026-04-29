@@ -37,17 +37,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "projects-semg-decoder-system-design",
-          title: 'sEMG Decoder System Design',
-          description: "End-to-end sEMG signal acquisition, processing, and neural decoding for wrist pose, discrete gestures, and handwriting -- based on the CTRL-Labs research platform.",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/1_emg_system/";
-            },},{id: "projects-emg-feature-extraction-and-classification",
-          title: 'EMG Feature Extraction and Classification',
-          description: "Time-domain feature extraction, signal preprocessing, and ML pattern recognition methods for EMG-based gesture classification.",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/2_emg_features/";
-            },},{
+        },{
       id: 'light-theme',
       title: 'Change theme to light',
       description: 'Change the theme of the site to Light',
